@@ -1,0 +1,32 @@
+# Bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Model artifacts (generated at runtime)
+*.pkl
+
+# Generated outputs (generated at runtime)
+*.xlsx
+*.png
+*.csv
+data/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+.venv/
+env/

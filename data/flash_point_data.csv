@@ -1,0 +1,20 @@
+solvent_mixture,flash_point_C,source
+EC:DEC 1:1,-2.0,LP40_ref_JES2019
+EC:DMC 1:1,-1.0,LP40_ref_JES2019
+EC:EMC 3:7,3.0,EMC_ref_JPS2020
+DMC pure,18.0,Solvent_flashpoint
+DEC pure,31.0,Solvent_flashpoint
+EC pure,143.0,Solvent_flashpoint
+PC pure,135.0,Solvent_flashpoint
+AN pure,52.0,Solvent_flashpoint
+DOL pure,-18.0,Solvent_flashpoint
+DME pure,1.0,Solvent_flashpoint
+GBL pure,104.0,Solvent_flashpoint
+EC:DEC 1:1 + 10% FEC,8.0,FEC_flashpoint
+EC:DMC 1:1 + 5% FEC,4.0,FEC_flashpoint
+EC:DMC 1:1 + 1% 槲皮素,3.0,GreenBatt_est
+EC:DMC 1:1 + 3% 槲皮素,6.0,GreenBatt_est
+EC:DMC 1:1 + 1% 儿茶素,2.5,GreenBatt_est
+EC:DMC 1:1 + 3% 儿茶素,5.5,GreenBatt_est
+EC:DMC 1:1 + 20% PGDA,78.0,Frontiers_2024
+EC:DMC 1:1 + 30% PGDA,100.0,Frontiers_2024

@@ -1,0 +1,85 @@
+molecule_name,solvent_type,additive_name,additive_conc_wt_pct,conductivity_mS_cm,temperature_C,source,property,mw,tpsa,logp,homo,lumo,data_quality,flash_point_C
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,10.2,25.0,JES_2019,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,12.1,30.0,JES_2019,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,15.3,40.0,JES_2019,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,20.8,60.0,JES_2019,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:EMC 3:7,EC:EMC 3:7,None,0.0,9.8,25.0,JPS_2020,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:EMC 3:7,EC:EMC 3:7,None,0.0,10.5,25.0,JPS_2020,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:EMC 3:7,EC:EMC 3:7,None,0.0,11.1,25.0,JPS_2020,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:PC 1:1,EC:PC 1:1,None,0.0,8.7,25.0,EA_2021,ionic_conductivity,100.12,26.3,0.6,-6.65,0.42,high,
+EC:PC 1:1,EC:PC 1:1,None,0.0,11.4,40.0,EA_2021,ionic_conductivity,100.12,26.3,0.6,-6.65,0.42,high,
+DMC,DMC,None,0.0,6.9,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+DMC,DMC,None,0.0,8.2,30.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+DMC,DMC,None,0.0,10.5,40.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+DEC,DEC,None,0.0,5.4,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EMC,EMC,None,0.0,7.1,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:2,EC:DMC 1:2,None,0.0,11.3,25.0,CALiSol23,ionic_conductivity,398.6,43.4,5.7,-6.5,0.5,high,
+EC:DMC 1:2,EC:DMC 1:2,None,0.0,18.7,60.0,CALiSol23,ionic_conductivity,398.6,43.4,5.7,-6.5,0.5,high,
+EC:DMC 3:7,EC:DMC 3:7,None,0.0,9.1,25.0,CALiSol23,ionic_conductivity,398.6,43.4,5.7,-6.5,0.5,high,
+EC:DMC 3:7,EC:DMC 3:7,None,0.0,10.2,25.0,CALiSol23,ionic_conductivity,398.6,43.4,5.7,-6.5,0.5,high,
+EC:DMC 3:7,EC:DMC 3:7,None,0.0,10.9,25.0,CALiSol23,ionic_conductivity,398.6,43.4,5.7,-6.5,0.5,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,8.4,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,14.1,60.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 3:7,EC:DEC 3:7,None,0.0,7.6,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+PC,PC,None,0.0,5.6,25.0,CALiSol23,ionic_conductivity,100.12,26.3,0.6,-6.65,0.42,high,
+PC,PC,None,0.0,7.9,40.0,CALiSol23,ionic_conductivity,100.12,26.3,0.6,-6.65,0.42,high,
+DOL:DME 1:1,DOL:DME 1:1,None,0.0,14.2,25.0,CALiSol23,ionic_conductivity,,,,,,high,
+DOL:DME 1:1,DOL:DME 1:1,None,0.0,18.6,25.0,CALiSol23,ionic_conductivity,,,,,,high,
+DOL:DME 1:1,DOL:DME 1:1,None,0.0,13.8,25.0,CALiSol23,ionic_conductivity,,,,,,high,
+DOL:DME 1:1,DOL:DME 1:1,None,0.0,19.1,25.0,CALiSol23,ionic_conductivity,,,,,,high,
+EC:DEC 1:1 + 10% FEC,EC:DEC 1:1,FEC,10.0,11.4,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 5% VC,EC:DMC 1:1,VC,5.0,9.8,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 2% PS,EC:DMC 1:1,PS,2.0,10.1,25.0,CALiSol23,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 1% 槲皮素,EC:DMC 1:1,槲皮素,1.0,9.5,25.0,GreenBatt_Quercetin,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 3% 槲皮素,EC:DMC 1:1,槲皮素,3.0,9.1,25.0,GreenBatt_Quercetin,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 5% 槲皮素,EC:DMC 1:1,槲皮素,5.0,8.6,25.0,GreenBatt_Quercetin,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 1% 儿茶素,EC:DMC 1:1,儿茶素,1.0,9.7,25.0,GreenBatt_Catechin,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 3% 儿茶素,EC:DMC 1:1,儿茶素,3.0,9.4,25.0,GreenBatt_Catechin,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 1% 表棓儿茶素,EC:DMC 1:1,表棓儿茶素,1.0,9.2,25.0,GreenBatt_Epigallocatechin,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 1% 没食子酸,EC:DMC 1:1,没食子酸,1.0,9.9,25.0,GreenBatt_GallicAcid,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1 (Baseline),EC:DEC 1:1 (Baseline),None,0.0,10.2,25.0,FEC_VC_ref,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1 + 10% FEC,EC:DEC 1:1,FEC,10.0,11.4,25.0,FEC_VC_ref,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1 + 2% VC,EC:DEC 1:1,VC,2.0,10.5,25.0,FEC_VC_ref,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 (Baseline),EC:DMC 1:1 (Baseline),None,0.0,8.4,25.0,FEC_VC_ref,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 10% FEC,EC:DMC 1:1,FEC,10.0,9.6,25.0,FEC_VC_ref,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1 + 5% FEC,EC:DMC 1:1,FEC,5.0,9.1,25.0,FEC_VC_ref,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:EMC 3:7 + 2% DTD,EC:EMC 3:7,DTD,2.0,10.8,25.0,HighVoltage_additives,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:EMC 3:7 + 1% SN,EC:EMC 3:7,SN,1.0,11.2,25.0,HighVoltage_additives,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:EMC 3:7 + 1% ADN,EC:EMC 3:7,ADN,1.0,10.6,25.0,HighVoltage_additives,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,8.4,25.0,Salt_comparison,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,12.3,25.0,Salt_comparison,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,11.8,25.0,Salt_comparison,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,4.2,25.0,Salt_comparison,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,4.1,0.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,6.8,10.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,8.5,20.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,12.1,30.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,15.3,40.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,17.9,50.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,20.8,60.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,3.3,0.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,6.9,20.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,10.5,40.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,14.8,60.0,Temperature_dependence,ionic_conductivity,384.6,17.1,8.2,-6.45,0.52,high,
+PC,PC,None,0.0,4.1,20.0,Temperature_dependence,ionic_conductivity,100.12,26.3,0.6,-6.65,0.42,high,
+PC,PC,None,0.0,7.9,40.0,Temperature_dependence,ionic_conductivity,100.12,26.3,0.6,-6.65,0.42,high,
+PC,PC,None,0.0,11.8,60.0,Temperature_dependence,ionic_conductivity,100.12,26.3,0.6,-6.65,0.42,high,
+EC:DEC 1:1,EC:DEC 1:1,None,0.0,,25.0,LP40_ref_JES2019,flash_point,,,,,,medium,-2.0
+EC:DMC 1:1,EC:DMC 1:1,None,0.0,,25.0,LP40_ref_JES2019,flash_point,,,,,,medium,-1.0
+EC:EMC 3:7,EC:EMC 3:7,None,0.0,,25.0,EMC_ref_JPS2020,flash_point,,,,,,medium,3.0
+DMC pure,DMC pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,18.0
+DEC pure,DEC pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,31.0
+EC pure,EC pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,143.0
+PC pure,PC pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,135.0
+AN pure,AN pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,52.0
+DOL pure,DOL pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,-18.0
+DME pure,DME pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,1.0
+GBL pure,GBL pure,None,0.0,,25.0,Solvent_flashpoint,flash_point,,,,,,medium,104.0
+EC:DEC 1:1 + 10% FEC,EC:DEC 1:1 + 10% FEC,None,0.0,,25.0,FEC_flashpoint,flash_point,,,,,,medium,8.0
+EC:DMC 1:1 + 5% FEC,EC:DMC 1:1 + 5% FEC,None,0.0,,25.0,FEC_flashpoint,flash_point,,,,,,medium,4.0
+EC:DMC 1:1 + 1% 槲皮素,EC:DMC 1:1 + 1% 槲皮素,None,0.0,,25.0,GreenBatt_est,flash_point,,,,,,medium,3.0
+EC:DMC 1:1 + 3% 槲皮素,EC:DMC 1:1 + 3% 槲皮素,None,0.0,,25.0,GreenBatt_est,flash_point,,,,,,medium,6.0
+EC:DMC 1:1 + 1% 儿茶素,EC:DMC 1:1 + 1% 儿茶素,None,0.0,,25.0,GreenBatt_est,flash_point,,,,,,medium,2.5
+EC:DMC 1:1 + 3% 儿茶素,EC:DMC 1:1 + 3% 儿茶素,None,0.0,,25.0,GreenBatt_est,flash_point,,,,,,medium,5.5
+EC:DMC 1:1 + 20% PGDA,EC:DMC 1:1 + 20% PGDA,None,0.0,,25.0,Frontiers_2024,flash_point,,,,,,medium,78.0
+EC:DMC 1:1 + 30% PGDA,EC:DMC 1:1 + 30% PGDA,None,0.0,,25.0,Frontiers_2024,flash_point,,,,,,medium,100.0

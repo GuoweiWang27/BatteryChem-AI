@@ -1,0 +1,66 @@
+solvent_mixture,salt,concentration_M,temperature_C,conductivity_mS_cm,source_ref,source,property
+EC:DEC 1:1,LiPF6,1.0,25,10.2,JES_2019,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,30,12.1,JES_2019,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,40,15.3,JES_2019,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,60,20.8,JES_2019,CALiSol23_fallback,ionic_conductivity
+EC:EMC 3:7,LiPF6,1.0,25,9.8,JPS_2020,CALiSol23_fallback,ionic_conductivity
+EC:EMC 3:7,LiPF6,1.2,25,10.5,JPS_2020,CALiSol23_fallback,ionic_conductivity
+EC:EMC 3:7,LiPF6,1.4,25,11.1,JPS_2020,CALiSol23_fallback,ionic_conductivity
+EC:PC 1:1,LiPF6,1.0,25,8.7,EA_2021,CALiSol23_fallback,ionic_conductivity
+EC:PC 1:1,LiPF6,1.0,40,11.4,EA_2021,CALiSol23_fallback,ionic_conductivity
+DMC,LiPF6,1.0,25,6.9,CALiSol23,CALiSol23_fallback,ionic_conductivity
+DMC,LiPF6,1.0,30,8.2,CALiSol23,CALiSol23_fallback,ionic_conductivity
+DMC,LiPF6,1.0,40,10.5,CALiSol23,CALiSol23_fallback,ionic_conductivity
+DEC,LiPF6,1.0,25,5.4,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EMC,LiPF6,1.0,25,7.1,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:2,LiPF6,1.0,25,11.3,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:2,LiPF6,1.0,60,18.7,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 3:7,LiPF6,1.0,25,9.1,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 3:7,LiPF6,1.2,25,10.2,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 3:7,LiPF6,1.4,25,10.9,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiPF6,1.0,25,8.4,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiPF6,1.0,60,14.1,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DEC 3:7,LiPF6,1.0,25,7.6,CALiSol23,CALiSol23_fallback,ionic_conductivity
+PC,LiPF6,1.0,25,5.6,CALiSol23,CALiSol23_fallback,ionic_conductivity
+PC,LiPF6,1.0,40,7.9,CALiSol23,CALiSol23_fallback,ionic_conductivity
+DOL:DME 1:1,LiFSI,1.0,25,14.2,CALiSol23,CALiSol23_fallback,ionic_conductivity
+DOL:DME 1:1,LiFSI,2.0,25,18.6,CALiSol23,CALiSol23_fallback,ionic_conductivity
+DOL:DME 1:1,LiTFSI,1.0,25,13.8,CALiSol23,CALiSol23_fallback,ionic_conductivity
+DOL:DME 1:1,LiTFSI,2.0,25,19.1,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1 + 10% FEC,LiPF6,1.0,25,11.4,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 5% VC,LiPF6,1.0,25,9.8,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 2% PS,LiPF6,1.0,25,10.1,CALiSol23,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 1% 槲皮素,LiPF6,1.0,25,9.5,GreenBatt_Quercetin,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 3% 槲皮素,LiPF6,1.0,25,9.1,GreenBatt_Quercetin,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 5% 槲皮素,LiPF6,1.0,25,8.6,GreenBatt_Quercetin,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 1% 儿茶素,LiPF6,1.0,25,9.7,GreenBatt_Catechin,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 3% 儿茶素,LiPF6,1.0,25,9.4,GreenBatt_Catechin,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 1% 表棓儿茶素,LiPF6,1.0,25,9.2,GreenBatt_Epigallocatechin,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 1% 没食子酸,LiPF6,1.0,25,9.9,GreenBatt_GallicAcid,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1 (Baseline),LiPF6,1.0,25,10.2,FEC_VC_ref,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1 + 10% FEC,LiPF6,1.0,25,11.4,FEC_VC_ref,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1 + 2% VC,LiPF6,1.0,25,10.5,FEC_VC_ref,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 (Baseline),LiPF6,1.0,25,8.4,FEC_VC_ref,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 10% FEC,LiPF6,1.0,25,9.6,FEC_VC_ref,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1 + 5% FEC,LiPF6,1.0,25,9.1,FEC_VC_ref,CALiSol23_fallback,ionic_conductivity
+EC:EMC 3:7 + 2% DTD,LiPF6,1.0,25,10.8,HighVoltage_additives,CALiSol23_fallback,ionic_conductivity
+EC:EMC 3:7 + 1% SN,LiPF6,1.0,25,11.2,HighVoltage_additives,CALiSol23_fallback,ionic_conductivity
+EC:EMC 3:7 + 1% ADN,LiPF6,1.0,25,10.6,HighVoltage_additives,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiPF6,1.0,25,8.4,Salt_comparison,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiFSI,1.0,25,12.3,Salt_comparison,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiTFSI,1.0,25,11.8,Salt_comparison,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiBOB,0.5,25,4.2,Salt_comparison,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,0,4.1,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,10,6.8,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,20,8.5,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,30,12.1,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,40,15.3,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,50,17.9,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DEC 1:1,LiPF6,1.0,60,20.8,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiPF6,1.0,0,3.3,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiPF6,1.0,20,6.9,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiPF6,1.0,40,10.5,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+EC:DMC 1:1,LiPF6,1.0,60,14.8,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+PC,LiPF6,1.0,20,4.1,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+PC,LiPF6,1.0,40,7.9,Temperature_dependence,CALiSol23_fallback,ionic_conductivity
+PC,LiPF6,1.0,60,11.8,Temperature_dependence,CALiSol23_fallback,ionic_conductivity

@@ -2,131 +2,94 @@ import os
 import numpy as np
 import pandas as pd
 import joblib
-from sklearn.ensemble import RandomForestRegressor
+from xgboost import XGBRegressor  # 🚀 斩断森林，全面换血升级为高级梯度提升树
 
 # =====================================================================
-# 📚 1. 核心静态物性参考数据库 (量子化学 DFT 计算底座)
+# 📚 1. 黄金真分子描述符资产库 (对齐 data_pipeline)
 # =====================================================================
-SOLVENT_DATABASE = {
-    "EC":  {"mw": 88.06,  "tpsa": 35.53, "logp": -0.38, "homo": -7.21, "lumo": 0.45, "d_idx": 0},
-    "DMC": {"mw": 90.08,  "tpsa": 26.30, "logp": -0.42, "homo": -6.85, "lumo": 0.72, "d_idx": 1},
-    "EMC": {"mw": 104.11, "tpsa": 26.30, "logp": -0.15, "homo": -6.78, "lumo": 0.68, "d_idx": 2},
-    "DEC": {"mw": 118.13, "tpsa": 26.30, "logp": 0.12,  "homo": -6.72, "lumo": 0.65, "d_idx": 3},
-    "PC":  {"mw": 102.09, "tpsa": 35.53, "logp": -0.22, "homo": -7.15, "lumo": 0.42, "d_idx": 4}
+MOLECULAR_GOLDEN_DATABASE = {
+    "DMC":  {"mw": 90.08,  "tpsa": 26.30, "logp": 0.23,  "homo": -6.50, "lumo": 0.50,  "is_solvent": True},
+    "DEC":  {"mw": 118.13, "tpsa": 26.30, "logp": 0.80,  "homo": -6.45, "lumo": 0.52,  "is_solvent": True},
+    "EC":   {"mw": 88.06,  "tpsa": 35.53, "logp": 0.11,  "homo": -7.21, "lumo": 0.45,  "is_solvent": True}, # 彻底对齐
+    "EMC":  {"mw": 104.11, "tpsa": 26.30, "logp": 0.47,  "homo": -6.40, "lumo": 0.53,  "is_solvent": True},
+    "PC":   {"mw": 102.09, "tpsa": 26.30, "logp": 0.06,  "homo": -6.65, "lumo": 0.42,  "is_solvent": True},
+    "DOL":  {"mw": 74.08,  "tpsa": 9.23,  "logp": 0.22,  "homo": -6.15, "lumo": 0.65,  "is_solvent": True},
+    "DME":  {"mw": 90.12,  "tpsa": 18.46, "logp": -0.21, "homo": -6.20, "lumo": 0.60,  "is_solvent": True},
+    "MP":   {"mw": 88.11,  "tpsa": 26.30, "logp": 0.84,  "homo": -6.35, "lumo": 0.55,  "is_solvent": True},
+    "EP":   {"mw": 102.13, "tpsa": 26.30, "logp": 1.30,  "homo": -6.30, "lumo": 0.57,  "is_solvent": True},
+    "THF":  {"mw": 72.11,  "tpsa": 9.23,  "logp": 1.75,  "homo": -6.05, "lumo": 0.70,  "is_solvent": True},
+    "GBL":  {"mw": 86.09,  "tpsa": 26.30, "logp": -0.64, "homo": -6.55, "lumo": 0.48,  "is_solvent": True},
+    "AN":   {"mw": 41.05,  "tpsa": 23.79, "logp": -0.34, "homo": -7.20, "lumo": 0.05,  "is_solvent": True},
+    "FEC":  {"mw": 106.05, "tpsa": 35.53, "logp": 0.09,  "homo": -7.10, "lumo": -0.20, "is_solvent": False},
+    "VC":   {"mw": 84.03,  "tpsa": 26.30, "logp": 0.24,  "homo": -6.85, "lumo": -0.35, "is_solvent": False},
+    "PS":   {"mw": 104.13, "tpsa": 51.75, "logp": -0.41, "homo": -6.95, "lumo": -0.45, "is_solvent": False},
+    "SN":   {"mw": 80.09,  "tpsa": 47.58, "logp": -0.22, "homo": -7.50, "lumo": -0.10, "is_solvent": False},
+    "ADN":  {"mw": 108.14, "tpsa": 47.58, "logp": 0.79,  "homo": -7.42, "lumo": -0.12, "is_solvent": False},
+    "DTD":  {"mw": 108.12, "tpsa": 51.75, "logp": -1.55, "homo": -7.05, "lumo": -0.40, "is_solvent": False},
+    "Quercetin":        {"mw": 302.23, "tpsa": 127.0, "logp": 1.51,  "homo": -5.30, "lumo": 0.82,  "is_solvent": False},
+    "Catechin":         {"mw": 290.27, "tpsa": 110.0, "logp": 0.42,  "homo": -5.45, "lumo": 0.78,  "is_solvent": False},
+    "Epigallocatechin":  {"mw": 306.27, "tpsa": 129.0, "logp": 0.22,  "homo": -5.35, "lumo": 0.80,  "is_solvent": False},
+    "Gallic_Acid":      {"mw": 170.12, "tpsa": 98.0,  "logp": 0.71,  "homo": -6.40, "lumo": 0.15,  "is_solvent": False},
+    "Resveratrol":       {"mw": 228.24, "tpsa": 60.7,  "logp": 3.11,  "homo": -5.20, "lumo": 0.88,  "is_solvent": False}
 }
 
-# =====================================================================
-# 🔬 2. 基于数据+知识增强的动态物理方程内核 (彻底拉开多酚浓度与能垒差距)
-# =====================================================================
-def calculate_physics_conductivity(mw, tpsa, d_index, add_pct, T=298.15):
-    """ 
-    修正式自由体积理论：添加剂浓度增加会导致溶液局部粘度呈抛物线非线性上升，
-    从而对传质电导率产生明显的物理压制效应 (消灭完全一样的死数)
-    """
-    base_viscosity = 0.1 * np.exp((0.0073 * mw + 0.0115 * tpsa) * (298.15 / T))
-    # 浓度每增加 1%，局部传质阻力粘度增加
-    actual_viscosity = base_viscosity * (1.0 + 0.045 * add_pct + 0.002 * (add_pct**2))
-    base_cond = (T * 1.24e-3) / actual_viscosity * (1.0 - 0.003 * d_index)
-    return float(np.clip(base_cond, 0.5, 18.0))
+def build_advanced_13d_features(s_mw, s_tpsa, s_logp, s_homo, s_lumo, add_pct, a_mw, a_tpsa, a_logp, a_homo, a_lumo):
+    cross_gap = a_lumo - s_homo
+    combined_mass = s_mw * 0.9 + a_mw * (add_pct / 100.0)
+    approx_viscosity = 0.1 * np.exp((0.0073 * combined_mass + 0.0115 * s_tpsa))
+    inv_viscosity = 1.0 / approx_viscosity
+    dielectric_field = (s_tpsa + a_tpsa * (add_pct / 100.0)) / (s_mw + 1e-5)
+    return [s_mw, s_tpsa, s_logp, s_homo, s_lumo, a_mw, a_tpsa, a_logp, a_homo, a_lumo, cross_gap, inv_viscosity, dielectric_field]
 
-# =====================================================================
-# 📊 3. 真实多酚实验数据加载 + 100倍物理信息相空间增强
-# =====================================================================
-def load_augmented_experimental_dataset():
+def load_pure_data_driven_dataset():
     csv_path = "data/experimental_training_data.csv"
-    
-    if not os.path.exists(csv_path):
-        print(f"⚠️ 提示: 未检测到数据管道产物 '{csv_path}'，启动自适应备份引擎...")
-        return generate_simulated_backup_dataset()
-        
-    print(f"📡 成功接通多酚数据管道！正在读取并清洗训练矩阵 '{csv_path}'...")
+    if not os.path.exists(csv_path): return None, None
     df = pd.read_csv(csv_path)
-    
-    # 智能过滤无机固体 NaN 空值
     df_clean = df.dropna(subset=['mw', 'tpsa', 'logp', 'homo', 'lumo'])
     
-    X_augmented = []
-    y_cond = []
-    
+    X_matrix, y_cond = [], []
     for _, row in df_clean.iterrows():
+        base_experimental_cond = float(row['conductivity_mS_cm'])
         s_mw, s_tpsa = float(row['mw']), float(row['tpsa'])
         s_logp, s_homo, s_lumo = float(row['logp']), float(row['homo']), float(row['lumo'])
         add_pct = float(row['additive_pct'])
-        base_cond = float(row['conductivity_mS_cm'])
         
-        # 🌟 物理扩散：100 次细致的多维物理特征场空间离散
+        add_name = str(row.get('additive_name', 'Quercetin')).split(" ")[0].strip()
+        if add_name not in MOLECULAR_GOLDEN_DATABASE: add_name = "Quercetin"
+        a_meta = MOLECULAR_GOLDEN_DATABASE[add_name]
+        a_mw, a_tpsa, a_logp, a_homo, a_lumo = a_meta["mw"], a_meta["tpsa"], a_meta["logp"], a_meta["homo"], a_meta["lumo"]
+        
+        # 🌟 恢复标准的宏观 5% 扰动相空间（不需要人工委屈缩减扰动了！）
         for k in range(100):
-            perturb = 0.95 + (k / 100.0) * 0.10
+            perturb = 0.95 + (k / 100.0) * 0.10  
+            p_s_mw, p_s_tpsa, p_add_pct = s_mw * perturb, s_tpsa * (2.0 - perturb), add_pct * perturb
             
-            p_s_mw = s_mw * perturb
-            p_s_tpsa = s_tpsa * (2.0 - perturb)
-            p_add_pct = add_pct * perturb
+            feat = build_advanced_13d_features(p_s_mw, p_s_tpsa, s_logp, s_homo, s_lumo, p_add_pct, a_mw, a_tpsa, a_logp, a_homo, a_lumo)
+            X_matrix.append(feat)
             
-            # 现场套用与浓度、能级边界挂钩的动态物理规律
-            p_cond = calculate_physics_conductivity(p_s_mw, p_s_tpsa, 1, p_add_pct)
+            approx_viscosity_ratio = np.exp(0.0073 * (p_s_mw - s_mw) + 0.0115 * (p_s_tpsa - s_tpsa))
+            raw_target_cond = base_experimental_cond / approx_viscosity_ratio
             
-            # 9 维经典高纯度物理指纹输入矩阵
-            feat = [
-                p_s_mw, p_s_tpsa, s_logp, s_homo, s_lumo,
-                p_add_pct, p_add_pct * 0.1, s_homo - 0.5, s_lumo + 0.5
-            ]
-            X_augmented.append(feat)
-            y_cond.append(p_cond)
+            # 🌟 绝杀点：对数变换（Log10 变换），强行压缩指数级非线性波动
+            y_cond.append(np.log10(raw_target_cond))
             
-    X = np.array(X_augmented)
-    y_cond = np.array(y_cond)
-    
-    # 多目标标签动态推演 (工作窗口、闪点、传质能垒全部挂钩多酚浓度 X[:, 5])
-    y_wind = np.clip(5.8 - np.abs(X[:, 3]) + 0.15 * np.log1p(X[:, 5]), 2.0, 5.5)
-    y_flash = np.clip(35.0 + 4.5 * np.sqrt(0.65 * X[:, 0] + 1.2 * X[:, 1] + 5.0 * X[:, 5]), 10.0, 150.0)
-    y_desolv = np.clip(25.0 + 0.45 * X[:, 1] - 2.5 * np.abs(X[:, 4]) + 0.8 * X[:, 5], 20.0, 85.0)
-    y_coord = np.clip((X[:, 1] * 2.5) * (1.2 - 0.3) + 1.5 * X[:, 5], 5.0, 95.0)
-    
-    print(f"  |-- 🎉 物理增强成功！多酚高灵敏度数据集扩展至: {len(X)} 条！")
-    return X, y_cond, y_wind, y_flash, y_desolv, y_coord
+    return np.array(X_matrix), np.array(y_cond)
 
-def generate_simulated_backup_dataset():
-    dataset = []
-    for s_code, s_data in SOLVENT_DATABASE.items():
-        for k in range(200):
-            perturb = 0.95 + (k / 200.0) * 0.10
-            feat = [s_data["mw"]*perturb, s_data["tpsa"]*(2.0-perturb), s_data["logp"], s_data["homo"], s_data["lumo"], 2.0, 0.2, -7.0, -0.2]
-            dataset.append((feat, 8.5, 4.2, 45.0, 32.0, 45.0))
-    X = np.array([item[0] for item in dataset])
-    return X, np.array([item[1] for item in dataset]), np.array([item[2] for item in dataset]), np.array([item[3] for item in dataset]), np.array([item[4] for item in dataset]), np.array([item[5] for item in dataset])
-
-# =====================================================================
-# 🧠 4. 随机森林多输出高并发并行训练
-# =====================================================================
 def train_academic_brains():
     print("="*80)
-    print(" 🧠 Re-Training Brains with High-Sensitivity Polyphenol Equations...")
+    print(" 🧠 Re-Training 13D Brain with XGBoost + Log-Transform (Scheme B) ...")
     print("="*80)
+    X, y_cond = load_pure_data_driven_dataset()
+    if X is None: return
     
-    X, y_cond, y_wind, y_flash, y_desolv, y_coord = load_augmented_experimental_dataset()
-    rf_config = dict(n_estimators=100, max_depth=13, random_state=42, n_jobs=-1)
+    # 工业级高轻量化 XGBoost 超参数底座配置
+    xgb_config = dict(n_estimators=150, max_depth=6, learning_rate=0.08, random_state=42, n_jobs=-1)
+    print(f"⏳ Fitting Pure XGBoost Conductivity Engine over {len(X)} samples...")
+    cond_brain = XGBRegressor(**xgb_config).fit(X, y_cond)
     
-    print("⏳ Fits 1/5: Training High-Sensitivity Conductivity Engine...")
-    cond_brain = RandomForestRegressor(**rf_config).fit(X, y_cond)
-    print("⏳ Fits 2/5: Training High-Sensitivity Voltage Window Engine...")
-    wind_brain = RandomForestRegressor(**rf_config).fit(X, y_wind)
-    print("⏳ Fits 3/5: Training High-Sensitivity Flash Point Engine...")
-    flash_brain = RandomForestRegressor(**rf_config).fit(X, y_flash)
-    print("⏳ Fits 4/5: Training High-Sensitivity Desolvation Engine...")
-    desolv_brain = RandomForestRegressor(**rf_config).fit(X, y_desolv)
-    print("⏳ Fits 5/5: Training High-Sensitivity Coordination Engine...")
-    coord_brain = RandomForestRegressor(**rf_config).fit(X, y_coord)
-    
-    brains = {
-        "cond_brain": cond_brain, "wind_brain": wind_brain, "flash_brain": flash_brain,
-        "desolv_brain": desolv_brain, "coord_brain": coord_brain
-    }
-    
-    # 特征升维单点压力核验
-    test_feat = [88.06, 35.53, -0.38, -7.21, 0.45, 2.0, 0.2, -7.71, 0.95]
-    joblib.dump(brains, "ultimate_academic_brain.pkl")
+    joblib.dump({"cond_brain": cond_brain}, "ultimate_academic_brain.pkl")
     print("="*80)
-    print("🎉 Success! High-Sensitivity Dynamic AI Models Saved successfully!")
+    print("🎉 Success! XGBoost Log-Driven Brain Saved Successfully!")
     print("="*80)
 
 if __name__ == "__main__":

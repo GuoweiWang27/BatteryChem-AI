@@ -15,7 +15,7 @@ try:
 except ImportError:
     RDKIT_AVAILABLE = False
 
-st.set_page_config(page_title="BatteryChem-AI Sandbox v8.5", layout="wide")
+st.set_page_config(page_title="BatteryChem-AI Sandbox v10.5", layout="wide")
 
 SOLVENT_PRESETS_LOCAL = {k: v for k, v in REAL_SOLVENTS_DATABASE.items()}
 ADDITIVE_PRESETS_LOCAL = {k: v for k, v in REAL_ADDITIVES_DATABASE.items()}
@@ -47,7 +47,7 @@ def get_rdkit_molecular_physics(smiles_str, is_solvent=True):
     except Exception:
         return (88.06, 35.53, 0.11, -7.21, 0.15) if is_solvent else (302.23, 127.0, 1.51, -5.30, 0.82)
 
-st.title("🧪 BatteryChem-AI: Symmetrical End-to-End 15D Sandbox (v8.5)")
+st.title("🧪 BatteryChem-AI: Symmetrical End-to-End 15D Sandbox (v10.5)")
 st.markdown("---")
 
 if brains is None:
@@ -59,7 +59,6 @@ else:
     
     with col_left:
         st.header("🎛️ Universal Molecular Sandbox")
-        # 🌟 确保此处动态获取选中的锂盐物性描述符，直接压入特征矩阵
         salt_choice = st.selectbox("选择配方工作锂盐环境", list(SALT_PRESETS_LOCAL.keys()))
         salt_meta = SALT_PRESETS_LOCAL[salt_choice]
         
@@ -110,21 +109,18 @@ else:
         st.header(f"📊 Pure Unbiased AI Diagnostics Platform")
         
         if solv_success and add_success:
-            # 🌟 核心对齐：把选中的锂盐 mw 和 tpsa 完美封入 15 维空间！
+            # 组装自洽的 15 维实时特征向量
             X_live = np.array([build_pure_uncoupled_15d_features(
                 s_mw, s_tpsa, s_logp, s_homo, s_lumo, 
                 salt_meta["mw"], salt_meta["tpsa"],
                 dosage, a_mw, a_tpsa, a_logp, a_homo, a_lumo
             )])
             
-            # 100% 数据驱动端到端预测
+            # 🚀 终极修正：100% 砍掉任何人为的 salt_modifier 乘积系数！
+            # 既然大库已经是清白的公式去污染数据，AI 模型输出的数字就是最纯净、最具有因果规律的端到端真值！
             c_final = float(brains["cond_brain"].predict(X_live)[0])
             
-            # 引入跨盐非线性流体联动系数，打破树的外推离散刚性，强迫数字平滑响应
-            salt_modifier = 0.84 if salt_choice == "LiTFSI" else (0.95 if salt_choice == "LiFSI" else 1.0)
-            c_m_display = c_final * salt_modifier
-            
-            st.metric("AI 预测真实离子电导率 (mS/cm)", f"{c_m_display:.2f}")
+            st.metric("AI 预测真实离子电导率 (mS/cm)", f"{c_final:.2f}")
             st.markdown("---")
             
             st.subheader("🔋 15维原始拓扑特征流形空间联动可视化")
@@ -136,7 +132,8 @@ else:
                 cross_gap = a_lumo - s_homo
                 val_stability = np.clip((5.5 - np.abs(cross_gap)) / 5.5, 0.1, 1.0)
             
-            val_conductivity = np.clip(c_m_display / 16.0, 0.1, 1.0)              
+            # 完全解耦对称的科学渲染
+            val_conductivity = np.clip(c_final / 16.0, 0.1, 1.0)              
             val_visc_resistance = np.clip((s_mw / 100.0) * (1.0 + 0.05 * dosage) * (salt_meta["mw"]/150.0) / 2.0, 0.1, 1.0)  
             val_dosage_gradient = np.clip(dosage / 5.0, 0.1, 1.0)       
             val_polarity_matching = np.clip((150.0 - np.abs(a_tpsa - s_tpsa)) / 150.0, 0.1, 1.0)

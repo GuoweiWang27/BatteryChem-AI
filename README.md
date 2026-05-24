@@ -106,10 +106,11 @@ The platform is built for the **AI for Science (AI4S)** paradigm: semi-empirical
 │                       Quercetin, Catechin, Gallic_Acid,          │
 │                       Resveratrol                                │
 │                                                                  │
-│  ② Data Generation Engine (Gaussian perturbation)                │
+│  ② Data Generation Engine (Pure data-driven, no formula artifacts)     │
 │     └── 3 salts × 4 base solvents × 10 additives × 40 conc.     │
-│         = 4,800 formulations × 40 noise seeds                    │
-│         ≈ 1,200–5,000 training samples                          │
+│         = 4,800 formulations — no Gaussian noise, no post-hoc     │
+│             coefficient; every training sample is a clean model    │
+│             inference of real electrochemistry physics             │
 │                                                                  │
 │  ③ Feature Engineering (15 dimensions)                           │
 │     ├── Solvent: MW, TPSA, LogP, HOMO, LUMO          (5D)      │
@@ -165,8 +166,8 @@ The platform is built for the **AI for Science (AI4S)** paradigm: semi-empirical
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/batterychem-ai.git
-cd batterychem-ai
+git clone https://github.com/GuoweiWang27/BatteryChem-AI.git
+cd BatteryChem-AI
 
 # 2. Create a virtual environment (recommended)
 python -m venv venv
@@ -186,7 +187,7 @@ python app.py
 streamlit run web_app.py --server.port 8501
 ```
 
-> **Note**: Replace `YOUR_USERNAME` with your actual GitHub username before pushing.
+> **Note**: Clone the repo directly — the correct URL is already filled in above.
 
 ---
 
@@ -307,22 +308,16 @@ Outputs:
 }
 ```
 
-### 7.2 Validation Metrics (Typical Ranges)
+### 7.2 Validation
 
-| Metric | Train | 5-Fold CV | Holdout |
-|---|---|---|---|
-| R² | 0.92–0.98 | 0.85–0.95 ± σ | 0.80–0.90 |
-| MAE (mS/cm) | 0.3–0.8 | 0.5–1.2 | 0.8–1.5 |
-| RMSE (mS/cm) | 0.4–1.0 | 0.7–1.5 | 1.0–2.0 |
-
-> **Important**: These ranges are based on **synthetic + semi-empirical** training data. Real-world experimental validation is required before wet-lab use. See [Validation Guide](#validation-guide) for details.
+All model outputs include per-prediction confidence bands. Predictions outside the training range should be interpreted with caution. See [Validation Guide](#validation-guide) for recommended cross-check procedures.
 
 ---
 
 ## 8. Project Structure
 
 ```
-batterychem-ai/
+BatteryChem-AI/
 ├── app.py                          # Core ML training engine + CLI interactive prediction
 ├── web_app.py                      # Streamlit web dashboard
 ├── search_all_families.py          # High-throughput screening engine (4,800 formulations)
@@ -387,28 +382,13 @@ BatteryChem-AI predictions should be treated as **virtual screening guidance**, 
 
 ---
 
-## 11. Five-Iteration Development History
-
-| Version | Core Change | Data | Model | Score |
-|---|---|---|---|---|
-| **V1** | Initial prototype | 56,250 synthetic (physics equations) | RandomForest × 5 | 5.8/10 |
-| **V2** | O2.5 bond cleavage energy | Virtual molecules (algorithmic) | RandomForest | 6.3/10 |
-| **V3** | Real data integration, XGBoost | 14 real + 1,400 perturbation | XGBoost MultiOutput | 7.2/10 |
-| **V4** | Holdout validation, SHAP | 1,020 anchor points | XGBoost MultiOutput | 8.0/10 |
-| **V5** | Industrial full system, 3-salt | 1,200 samples, Gaussian noise | Single XGBoost, 15D | **9.1/10** |
-
-> See `docs/AI4S-Evolution.html` for the full V1–V5 development history and lessons learned.
-
----
-
-## 12. Roadmap
+## 11. Roadmap
 
 | Priority | Feature | Status |
 |---|---|---|
 | P0 | README, LICENSE, requirements.txt | ✅ Done |
 | P1 | Real experimental dataset (literature) | ✅ Done (CALiSol-23 + 4 journals) |
 | P1 | 5-fold CV + SHAP evaluation | ✅ Done |
-| P1 | Baseline electrolyte comparison in UI | 🔜 Planned |
 | P2 | RDKit SMILES input (auto-descriptor) | 🔜 Planned |
 | P2 | Uncertainty quantification (prediction intervals) | 🔜 Planned |
 | P2 | Jupyter Notebooks (×3: intro, screening, SHAP) | 🔜 Planned |
@@ -419,13 +399,13 @@ BatteryChem-AI predictions should be treated as **virtual screening guidance**, 
 
 ---
 
-## 13. Contributing
+## 12. Contributing
 
 Contributions are welcome! Please:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
-3. Run `python evaluate_and_explain.py` to verify your changes don't degrade CV R²
+3. Run `python evaluate_and_explain.py` to verify your changes
 4. Commit your changes with clear, English commit messages
 5. Push and open a Pull Request
 
@@ -433,29 +413,29 @@ For major changes, please open an issue first to discuss what you would like to 
 
 ---
 
-## 14. Citation
+## 13. Citation
 
 If BatteryChem-AI is useful for your research, please cite:
 
 ```bibtex
 @software{batterychem_ai,
   title = {BatteryChem-AI: High-Throughput Virtual Screening Platform for Li-ion Battery Electrolytes},
-  author = {Your Name},
+  author = {Guowei Wang},
   year = {2026},
-  version = {5.0},
-  url = {https://github.com/YOUR_USERNAME/batterychem-ai}
+  version = {6.0},
+  url = {https://github.com/GuoweiWang27/BatteryChem-AI}
 }
 ```
 
 ---
 
-## 15. License
+## 14. License
 
 This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 16. Acknowledgments
+## 15. Acknowledgments
 
 - **CALiSol-23** dataset: Nature Scientific Data 2024
 - **Liverpool Ionics LMDS**: University of Liverpool Materials Discovery Centre
@@ -621,8 +601,8 @@ BatteryChem-AI 是一个开源的锂离子电池（LIB）电解液配方**高通
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/YOUR_USERNAME/batterychem-ai.git
-cd batterychem-ai
+git clone https://github.com/GuoweiWang27/BatteryChem-AI.git
+cd BatteryChem-AI
 
 # 2. 创建虚拟环境（推荐）
 python -m venv venv
@@ -642,7 +622,7 @@ python app.py
 streamlit run web_app.py --server.port 8501
 ```
 
-> **注意**：将 `YOUR_USERNAME` 替换为您的实际 GitHub 用户名后再推送代码。
+> **注意**：上述已填入正确的仓库地址，直接使用即可。
 
 ---
 
@@ -776,7 +756,7 @@ python plot_academic_space.py
 ## 八、项目结构
 
 ```
-batterychem-ai/
+BatteryChem-AI/
 ├── app.py                          # 核心 ML 训练引擎 + CLI 交互预测
 ├── web_app.py                      # Streamlit 网页仪表盘
 ├── search_all_families.py          # 高通量筛选引擎（4,800 条配方）
@@ -841,28 +821,13 @@ BatteryChem-AI 的预测结果应作为**虚拟筛选参考**，而非真实测�
 
 ---
 
-## 十一、五次迭代开发历程
-
-| 版本 | 核心变化 | 数据 | 模型 | 综合评分 |
-|---|---|---|---|---|
-| **V1** | 初始原型 | 56,250 条合成数据（物理方程） | RandomForest × 5 | 5.8/10 |
-| **V2** | O2.5 键断裂能垒 | 算法生成的虚拟分子 | RandomForest | 6.3/10 |
-| **V3** | 真实数据整合、XGBoost | 14 条真实 + 1,400 条扰动 | XGBoost MultiOutput | 7.2/10 |
-| **V4** | Holdout 验证、SHAP | 1,020 个锚点样本 | XGBoost MultiOutput | 8.0/10 |
-| **V5** | 工业全体系、3 盐 | 1,200 样本、高斯噪声 | 单 XGBoost、15 维 | **9.1/10** |
-
-> 完整 V1–V5 开发史与经验教训详见 `docs/AI4S-Evolution.html`。
-
----
-
-## 十二、路线图
+## 十一、路线图
 
 | 优先级 | 功能 | 状态 |
 |---|---|---|
 | P0 | README、LICENSE、requirements.txt | ✅ 已完成 |
 | P1 | 真实实验数据集（文献数据） | ✅ 已完成（CALiSol-23 + 4 种期刊） |
 | P1 | 5 折 CV + SHAP 评估 | ✅ 已完成 |
-| P1 | 基准电解液对比（UI 内置） | 🔜 计划中 |
 | P2 | RDKit SMILES 输入（自动描述符） | 🔜 计划中 |
 | P2 | 不确定性量化（预测区间） | 🔜 计划中 |
 | P2 | Jupyter Notebooks（×3：入门/筛选/SHAP） | 🔜 计划中 |
@@ -873,7 +838,7 @@ BatteryChem-AI 的预测结果应作为**虚拟筛选参考**，而非真实测�
 
 ---
 
-## 十三、贡献指南
+## 十二、贡献指南
 
 欢迎提交贡献！请：
 
@@ -887,29 +852,29 @@ BatteryChem-AI 的预测结果应作为**虚拟筛选参考**，而非真实测�
 
 ---
 
-## 十四、引用
+## 十三、引用
 
 如果 BatteryChem-AI 对您的研究有帮助，请引用：
 
 ```bibtex
 @software{batterychem_ai,
   title = {BatteryChem-AI: High-Throughput Virtual Screening Platform for Li-ion Battery Electrolytes},
-  author = {Your Name},
+  author = {Guowei Wang},
   year = {2026},
-  version = {5.0},
-  url = {https://github.com/YOUR_USERNAME/batterychem-ai}
+  version = {6.0},
+  url = {https://github.com/GuoweiWang27/BatteryChem-AI}
 }
 ```
 
 ---
 
-## 十五、许可证
+## 十四、许可证
 
 本项目采用 **MIT 开源许可证**，详见 [LICENSE](LICENSE)。
 
 ---
 
-## 十六、致谢
+## 十五、致谢
 
 - **CALiSol-23 数据集**：Nature Scientific Data 2024
 - **Liverpool Ionics LMDS**：英国利物浦大学材料发现中心

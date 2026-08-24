@@ -1,0 +1,64 @@
+{
+  "policy_version": "v3.0-draft-2026-08-24",
+  "status": "draft_not_frozen",
+  "source_type": "preregistered_convention",
+  "panel_fraction": 0.6,
+  "rounding": "ceil",
+  "panel_size": 5,
+  "budget_k": 3,
+  "budget_rationale": "Early wet-lab triage capacity is 60 percent of the full five-candidate panel rounded upward. It is independent of any expected or simulated result.",
+  "dpred_contract": {
+    "r_class": "pass",
+    "c_class_in": ["pass", "boundary-leaning"],
+    "u_class_not": "high",
+    "boundary_label_required": "low_confidence_prediction",
+    "boundary_activation": {
+      "decision_record": "V3EXEC-决策记录_boundary计入可行域_2026-08-24.md",
+      "requires_student_signature": true,
+      "requires_second_signature": true,
+      "if_either_rejects": "revert_to_c_class_equals_pass"
+    }
+  },
+  "joint_score_formula": "min(r_score,c_score)*(1-U)",
+  "joint_score_rationale": "The weaker axis is the bottleneck and uncertainty receives a conservative multiplicative penalty.",
+  "class_score_encoding": {
+    "r_pass": 1,
+    "r_other": 0,
+    "c_pass": 1,
+    "c_boundary_leaning": 0,
+    "c_fail_or_indeterminate": 0,
+    "note": "Boundary eligibility does not upgrade its score; it enters only as explicitly low-confidence and ranks behind positive-score pass candidates."
+  },
+  "ranking": [
+    {"field": "joint_score", "order": "descending"},
+    {"field": "U", "order": "ascending"},
+    {"field": "reactivity_order_rank", "order": "ascending", "mapping": ["Quercetin", "Catechin", "Pyrogallol", "Propyl gallate", "Resveratrol"], "scope": "equal_joint_score_and_equal_U_only"},
+    {"field": "candidate_id", "order": "ascending"}
+  ],
+  "selection": {
+    "source_pool": "Dpred_only",
+    "max_candidates": 3,
+    "pad_from_boundary_or_fail": false,
+    "boundary_membership_only_via_Dpred": true,
+    "empty_set_allowed": true,
+    "retune_if_unexpected": false
+  },
+  "timing_assurance": {
+    "statement": "The boundary-feasible-domain decision was recorded before the HSP calculation document was created or displayed as a governed artifact.",
+    "decision_record_filesystem_mtime_cst": "2026-08-24T13:53:50+08:00",
+    "hsp_calculation_document_initial_mtime_cst": "2026-08-24T13:59:05+08:00",
+    "decision_made_before_hsp_artifact": true,
+    "assurance_by": ["洋米", "王国维"],
+    "source": "V3EXEC-决策记录_boundary计入可行域_2026-08-24.md",
+    "audit_boundary": "This records artifact chronology and the written assurance; it does not infer facts beyond that signed statement."
+  },
+  "secondary_analysis_preregistered": {
+    "spearman_full_rank_vs_Qd100_effect": "n=5_directional_only_after_valid_unblind",
+    "axis_hit_counts": ["Rpred", "Cpred"],
+    "retuning_allowed": false
+  },
+  "virtual_library": {
+    "generate_full_ranking": true,
+    "wet_lab_validation_claim_allowed": false
+  }
+}

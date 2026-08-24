@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "synthetic_reactivity_window": {
+    "lower": 1.0,
+    "upper": 2.0,
+    "unit": "synthetic_unit"
+  },
+  "candidates": [
+    {
+      "candidate_id": "SYN-DET-001",
+      "preferred_name": "Synthetic Determinism Fixture",
+      "canonical_smiles": "SYNTHETIC-CANONICAL",
+      "isomeric_smiles": "SYNTHETIC-ISOMERIC",
+      "inchikey": "SYNTHETIC-DETERMINISM-001",
+      "source_ids": [
+        "SYN-SOURCE"
+      ],
+      "source_verification": {
+        "SYN-SOURCE": "synthetic_verified"
+      },
+      "verification_status": "synthetic_verified",
+      "missing_fields": [],
+      "inference_fields": [],
+      "synthetic": true,
+      "wet_lab_panel": true,
+      "selected_by_v3": false,
+      "redox_value": 1.5,
+      "redox_unit": "synthetic_unit",
+      "direct_target_ether_positive_record": true,
+      "precipitation_warning_present": false,
+      "transfer_context": "target",
+      "in_reference_domain": true,
+      "unresolved_source_conflict": false,
+      "units": {
+        "redox_value": "source_unit"
+      }
+    }
+  ]
+}

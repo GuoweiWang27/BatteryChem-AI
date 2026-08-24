@@ -1,0 +1,88 @@
+{
+  "policy_version": "v3.0-draft-2026-08-24",
+  "status": "draft_not_frozen",
+  "principles": {
+    "llm_imputation_allowed": false,
+    "silent_default_allowed": false,
+    "unknown_is_favorable_allowed": false,
+    "inference_promoted_to_fact_allowed": false
+  },
+  "hard_required_identity_fields": [
+    "candidate_id",
+    "preferred_name",
+    "canonical_smiles",
+    "isomeric_smiles",
+    "inchikey",
+    "source_ids",
+    "verification_status",
+    "missing_fields",
+    "inference_fields"
+  ],
+  "rpred_core_fields": [
+    "phenolic_oh_count",
+    "aromatic_ring_count",
+    "redox_value",
+    "redox_unit",
+    "reference_electrode",
+    "medium",
+    "evidence_relevance",
+    "direct_battery_additive_precedent",
+    "r_support",
+    "self_consumption_risk"
+  ],
+  "cpred_core_fields": [
+    "mw",
+    "tpsa",
+    "xlogp",
+    "ether_compatibility_evidence",
+    "dol_dme_solubility_evidence",
+    "direct_target_ether_positive_record",
+    "precipitation_warning_present",
+    "c_support",
+    "hsp_delta_d",
+    "hsp_delta_p",
+    "hsp_delta_h",
+    "hsp_r0",
+    "hsp_estimated",
+    "hsp_ra",
+    "hsp_red",
+    "hsp_symmetry_sensitivity_red"
+  ],
+  "actions": {
+    "missing_hard_identity": "reject_row",
+    "missing_rpred_core": "r_class_indeterminate_unless_verified_R_004_R_005_or_R_008_sufficiency_path_matches",
+    "missing_cpred_core": "c_class_indeterminate_unless_verified_C_006_or_complete_HSP_RED_ETHER_COMPAT_v1_path_matches",
+    "missing_hsp_r0": "retain_hsp_center_and_ra_if_available_but_set_red_null_and_c_support_indeterminate",
+    "estimated_hsp_endpoint": "set_hsp_estimated_true_and_raise_c_axis_uncertainty_and_report_sensitivity",
+    "missing_supporting_descriptor": "retain_null_and_raise_u_missing",
+    "unverified_inference": "retain_in_inference_fields_and_exclude_from_numeric_scoring",
+    "reference_or_medium_mismatch": "retain_original_value_and_raise_u_transfer",
+    "unresolved_source_conflict": "retain_all_sources_and_set_u_conflict_1"
+  },
+  "positive_evidence_controls": {
+    "r_pass_path": "verified_candidate_specific_sufficiency_bundle_then_R_006_with_family_or_non_target_gap_retained_in_U",
+    "c_pass_path": "verified_direct_target_DOL_DME_positive_record_or_complete_HSP_RED_at_or_below_0_8_then_C_007",
+    "c_boundary_path": "complete_HSP_RED_above_0_8_and_at_or_below_1_0_then_boundary_leaning; Dpred eligibility requires dual_signed_boundary_decision",
+    "non_target_compatibility": "boundary_leaning_only",
+    "numeric_physical_cutoff_invention_allowed": false
+  },
+  "u_missing_formula": "missing_core_count / core_field_count",
+  "uncertainty_aggregation": "max(u_missing,u_transfer,u_ood,u_conflict)",
+  "serialization": {
+    "json_missing_value": null,
+    "csv_missing_value": "missing",
+    "stable_field_order_required": true,
+    "stable_missing_list_sort_required": true
+  },
+  "forbidden_input_patterns": [
+    "Qd100",
+    "cycling_result",
+    "eis_result",
+    "cv_result",
+    "conductivity_result",
+    "appearance_result",
+    "first_round",
+    "second_round",
+    "third_round_result"
+  ]
+}
